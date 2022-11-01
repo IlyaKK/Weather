@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/navigation_graph"
+    app:startDestination="@id/controlLocationsWeatherFragment">
+
+    <fragment
+        android:id="@+id/controlLocationsWeatherFragment"
+        android:name="com.elijah.weather.ui.control_locations_weather.ControlLocationsWeatherFragment"
+        android:label="fragment_control_locations_weather"
+        tools:layout="@layout/fragment_control_locations_weather" >
+        <action
+            android:id="@+id/next_action"
+            app:destination="@id/searchLocationFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/searchLocationFragment"
+        android:name="com.elijah.weather.ui.search_location.SearchLocationFragment"
+        android:label="fragment_search_location"
+        tools:layout="@layout/fragment_search_location" />
+</navigation>

@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="title_city_text_size">40sp</dimen>
+    <dimen name="temperature_now_text_size">60sp</dimen>
+    <dimen name="title_now_weather_description_text_size">21sp</dimen>
+    <dimen name="current_max_min_temperature_text_size">21sp</dimen>
+    <dimen name="title_coordinates_text_size">16sp</dimen>
+</resources>

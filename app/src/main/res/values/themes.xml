@@ -1,0 +1,25 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Base application theme. -->
+    <style name="Theme.Weather" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+        <!-- Primary brand color. -->
+        <item name="colorPrimary">@color/color_primiry</item>
+        <item name="colorOnPrimary">@color/color_primiry</item>
+        <item name="android:statusBarColor">@color/color_primiry</item>
+        <item name="android:colorPrimaryDark">@color/color_primiry</item>
+        <item name="statusBarBackground">@color/color_primiry</item>
+        <item name="android:windowTranslucentStatus">true</item>
+        <!-- Customize your theme here. -->
+    </style>
+    <style name="MaterialCardStyle">
+        <item name="android:layout_marginTop">20dp</item>
+        <item name="android:layout_marginStart">20dp</item>
+        <item name="android:layout_marginEnd">20dp</item>
+        <item name="android:backgroundTint">@color/background_color</item>
+        <item name="cardCornerRadius">13dp</item>
+    </style>
+
+    <style name="StyleTextViewItemWeatherDay">
+        <item name="android:textColor">@color/black</item>
+        <item name="android:textSize">18sp</item>
+    </style>
+</resources>
