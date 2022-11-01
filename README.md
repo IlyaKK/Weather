@@ -17,3 +17,5 @@
 В приложении используется [One Call API 3.0](https://openweathermap.org/api/one-call-3) для получения данных о погоде и [Geocoding API](https://openweathermap.org/api/geocoding-api) для поиска города, который можно добавить для отслеживания погоды. Данные с добавленными городами хранятся в базе данных.
 
 Для API используется Retrofit, для базы данных Room.
+
+Чтобы использовать API необходимо получить API Key.
