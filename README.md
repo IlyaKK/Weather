@@ -18,6 +18,6 @@
 
 Для API используется Retrofit, для базы данных Room.
 
-Чтобы собрать проект и использовать API, необходимо получить API Key с [сайта](https://openweathermap.org/api). После этого создать файл 'apikey.properties' в корне проекта.
+Чтобы собрать проект и использовать API, необходимо получить API Key с [сайта](https://openweathermap.org/api). После этого создать файл ***apikey.properties*** в корне проекта.
 В нем сохранить строчку:
-weather_one_call_api_key="полученный API Key"
+>weather_one_call_api_key="полученный API Key"
