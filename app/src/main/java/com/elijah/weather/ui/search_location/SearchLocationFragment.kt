@@ -14,6 +14,7 @@ import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.elijah.weather.R
 import com.elijah.weather.app
 import com.elijah.weather.databinding.FragmentSearchLocationBinding
 import com.elijah.weather.domain.entity.Location
@@ -68,17 +69,17 @@ class SearchLocationFragment : Fragment() {
                         is LocationViewState.LocationListLoaded -> createListAccessCity(it.locations)
                         is LocationViewState.FailedGetListLocation -> Toast.makeText(
                             requireContext(),
-                            "Не удалось получить список городов",
+                            getString(R.string.not_added_list_cities),
                             Toast.LENGTH_LONG
                         ).show()
                         is LocationViewState.FailedAddLocation -> Toast.makeText(
                             requireContext(),
-                            "Не удалось добавить город",
+                            getString(R.string.not_added_city),
                             Toast.LENGTH_LONG
                         ).show()
                         is LocationViewState.FailedDeleteCity -> Toast.makeText(
                             requireContext(),
-                            "Не удалось удалить город",
+                            getString(R.string.not_delete_city),
                             Toast.LENGTH_LONG
                         ).show()
                     }
@@ -167,7 +168,7 @@ class SearchLocationFragment : Fragment() {
     }
 
     private fun showFailedSearched() {
-        binding.searchCityTextInputLayout.error = "Не удалось найти город"
+        binding.searchCityTextInputLayout.error = getString(R.string.not_searched_city)
         hideSearchedPanel()
 
     }

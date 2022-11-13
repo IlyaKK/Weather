@@ -3,4 +3,12 @@
     <string name="input_location_name">Введите местоположение</string>
     <string name="Minimal">Мин.</string>
     <string name="Maximal">Макс.</string>
+    <string name="not_added_list_cities">Не удалось получить список городов</string>
+    <string name="not_added_city">Не удалось добавить город</string>
+    <string name="not_delete_city">Не удалось удалить город</string>
+    <string name="not_load_hourly_weather">"Не удалось загрузить погоду за день в "</string>
+    <string name="not_load_daily_weather">"Не удалось загрузить погоду за неделю в "</string>
+    <string name="not_searched_city">Не удалось найти город</string>
+    <string name="now">Сейчас</string>
+    <string name="today">Сегодня</string>
 </resources>

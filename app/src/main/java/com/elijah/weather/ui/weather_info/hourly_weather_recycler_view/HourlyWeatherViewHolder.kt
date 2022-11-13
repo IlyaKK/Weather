@@ -10,7 +10,7 @@ class HourlyWeatherViewHolder(private val binding: ItemHourWeatherBinding) :
     RecyclerView.ViewHolder(binding.root) {
     fun bind(item: HourlyWeather, position: Int) {
         if (position == 0) {
-            binding.titleHourTv.text = "Сейчас"
+            binding.titleHourTv.text = binding.root.context.getString(R.string.now)
         } else {
             binding.titleHourTv.text = item.hourTime
         }

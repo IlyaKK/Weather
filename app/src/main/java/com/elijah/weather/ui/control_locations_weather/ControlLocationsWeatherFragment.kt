@@ -100,17 +100,17 @@ class ControlLocationsWeatherFragment : Fragment() {
                         is LocationViewState.LocationListLoaded -> createSliderWeather(it.locations)
                         is LocationViewState.FailedGetListLocation -> Toast.makeText(
                             requireContext(),
-                            "Не удалось получить список городов",
+                            getString(R.string.not_added_list_cities),
                             Toast.LENGTH_LONG
                         ).show()
                         is LocationViewState.FailedAddLocation -> Toast.makeText(
                             requireContext(),
-                            "Не удалось добавить город",
+                            getString(R.string.not_added_city),
                             Toast.LENGTH_LONG
                         ).show()
                         is LocationViewState.FailedDeleteCity -> Toast.makeText(
                             requireContext(),
-                            "Не удалось удалить город",
+                            getString(R.string.not_delete_city),
                             Toast.LENGTH_LONG
                         ).show()
 

@@ -92,7 +92,7 @@ class WeatherInfoFragment : Fragment() {
                 weatherInfoViewModel.viewStateHourlyWeather.collect {
                     when (it) {
                         is HourlyWeatherListViewState.HourlyWeatherLoaded -> showHourlyWeather(it.hourlyWeather)
-                        is HourlyWeatherListViewState.FailedToLoad -> showErrorMessage()
+                        is HourlyWeatherListViewState.FailedToLoad -> showErrorLoadHourlyWeatherMessage()
                     }
                 }
             }
@@ -118,7 +118,7 @@ class WeatherInfoFragment : Fragment() {
                 weatherInfoViewModel.viewStateDailyWeather.collect {
                     when (it) {
                         is DailyWeatherListViewState.DailyWeatherLoaded -> showDailyWeather(it.dailyWeather)
-                        is DailyWeatherListViewState.FailedToLoad -> showErrorMessage()
+                        is DailyWeatherListViewState.FailedToLoad -> showErrorLoadDailyWeatherMessage()
                     }
                 }
             }
@@ -145,9 +145,25 @@ class WeatherInfoFragment : Fragment() {
         binding.variableDayTemperatureTv.text = maxTemperature
     }
 
+    private fun showErrorLoadHourlyWeatherMessage() {
+        Toast.makeText(
+            requireContext(), getString(R.string.not_load_hourly_weather) + "${
+                arguments?.getString(
+                    KEY_NAME_LOCATION
+                )
+            }", Toast.LENGTH_LONG
+        ).show()
+    }
 
-    private fun showErrorMessage() {
-        Toast.makeText(requireContext(), "Не удалось загрузить погоду", Toast.LENGTH_LONG).show()
+
+    private fun showErrorLoadDailyWeatherMessage() {
+        Toast.makeText(
+            requireContext(), getString(R.string.not_load_daily_weather) + "${
+                arguments?.getString(
+                    KEY_NAME_LOCATION
+                )
+            }", Toast.LENGTH_LONG
+        ).show()
     }
 
     companion object {

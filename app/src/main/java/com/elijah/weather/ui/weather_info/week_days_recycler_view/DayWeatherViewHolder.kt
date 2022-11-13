@@ -10,7 +10,7 @@ class DayWeatherViewHolder(private val binding: ItemDayWeatherBinding) :
     RecyclerView.ViewHolder(binding.root) {
     fun bind(item: DailyWeather, position: Int) {
         if (position == 0) {
-            binding.titleDayNameTv.text = "Сегодня"
+            binding.titleDayNameTv.text = binding.root.context.getString(R.string.today)
         } else {
             binding.titleDayNameTv.text = item.dayDate
         }
