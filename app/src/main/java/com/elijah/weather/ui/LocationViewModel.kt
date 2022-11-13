@@ -8,6 +8,7 @@ import kotlinx.coroutines.CoroutineExceptionHandler
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.launch
 
@@ -83,7 +84,7 @@ class LocationViewModel(private val locationRepository: LocationRepository) : Vi
             launch(Dispatchers.IO) {
                 locationRepository.getListAddedLocations()
                     .distinctUntilChanged()
-                    .collect {
+                    .collectLatest {
                     _viewStateLocation.value = LocationViewState.LocationListLoaded(it)
                 }
             }
@@ -93,7 +94,7 @@ class LocationViewModel(private val locationRepository: LocationRepository) : Vi
     fun searchedLocation(text: CharSequence?) {
         scope.launch(handlerExceptionSearchedLocations) {
             launch(Dispatchers.IO) {
-                locationRepository.getCoordinatesByNameCity(text.toString()).collect {
+                locationRepository.getCoordinatesByNameCity(text.toString()).collectLatest {
                     _viewStateSearched.value = SearchedLocationViewState.SearchedListLoaded(it)
                 }
             }

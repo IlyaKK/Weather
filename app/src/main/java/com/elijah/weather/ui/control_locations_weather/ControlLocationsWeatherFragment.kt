@@ -33,7 +33,7 @@ import kotlinx.coroutines.launch
 class ControlLocationsWeatherFragment : Fragment() {
     private lateinit var binding: FragmentControlLocationsWeatherBinding
     private lateinit var fusedLocationClient: FusedLocationProviderClient
-    private var listPointers: MutableList<PointItem> = mutableListOf(PointItem(0, true))
+    private lateinit var pagerAdapter: ScreenSlidePagerAdapter
     private lateinit var pointerAdapter: PointersAdapter
 
     init {
@@ -60,6 +60,8 @@ class ControlLocationsWeatherFragment : Fragment() {
         initialiseRequestLocationPermission()
         initialiseEditLocationPlaces()
         initialisePointsExistsWeatherFragments()
+        pagerAdapter = ScreenSlidePagerAdapter()
+        binding.pagerFragmentsVp.adapter = pagerAdapter
         locationViewModel.getAccessLocations()
     }
 
@@ -119,13 +121,25 @@ class ControlLocationsWeatherFragment : Fragment() {
     }
 
     private fun createSliderWeather(locations: List<Location>) {
-        initialisePagerView(locations)
+        updateLocationsFragments(locations)
+        initialiseSelectedFragment(locations)
     }
 
-    private fun initialisePagerView(locations: List<Location>) {
-        binding.pagerFragmentsVp.adapter = null
-        val pagerAdapter = ScreenSlidePagerAdapter(locations)
-        binding.pagerFragmentsVp.adapter = pagerAdapter
+    private fun updateLocationsFragments(locations: List<Location>) {
+        pagerAdapter.setLocations(locations)
+    }
+
+    private fun initialiseSelectedFragment(locations: List<Location>) {
+        val newListPointers: MutableList<PointItem> = mutableListOf()
+        for (i in locations.indices) {
+            newListPointers.add(
+                PointItem(
+                    id = i,
+                    select = i == 0
+                )
+            )
+        }
+        pointerAdapter.submitList(newListPointers)
         binding.pagerFragmentsVp.registerOnPageChangeCallback(object :
             ViewPager2.OnPageChangeCallback() {
             override fun onPageSelected(position: Int) {
@@ -149,7 +163,6 @@ class ControlLocationsWeatherFragment : Fragment() {
         binding.pointsListContainerRv.layoutManager =
             LinearLayoutManager(requireContext(), RecyclerView.HORIZONTAL, false)
         binding.pointsListContainerRv.adapter = pointerAdapter
-        pointerAdapter.submitList(listPointers)
     }
 
     @SuppressLint("MissingPermission")
@@ -160,17 +173,49 @@ class ControlLocationsWeatherFragment : Fragment() {
         }
     }
 
-    private inner class ScreenSlidePagerAdapter(private val locations: List<Location>) :
-        FragmentStateAdapter(requireActivity()) {
+    private inner class ScreenSlidePagerAdapter :
+        FragmentStateAdapter(childFragmentManager, lifecycle) {
+        private var currentLoc = mutableListOf<Location>()
+
+        fun setLocations(locations: List<Location>) {
+            if (locations.size > currentLoc.size) {
+                for (index in currentLoc.size until locations.size) {
+                    currentLoc.add(locations[index])
+                    notifyItemChanged(index)
+                }
+            } else if (locations.size == currentLoc.size) {
+                for (index in locations.indices) {
+                    if (locations[index].cityName != currentLoc[index].cityName) {
+                        notifyItemRemoved(index)
+                        currentLoc.removeAt(index)
+                        currentLoc.add(index, locations[index])
+                        notifyItemChanged(index)
+                    }
+                }
+            } else if (locations.size < currentLoc.size) {
+                for (index in currentLoc.indices) {
+                    if (index < locations.size && (locations[index].cityName != currentLoc[index].cityName)) {
+                        notifyItemRemoved(index)
+                        currentLoc.removeAt(index)
+                        currentLoc.add(index, locations[index])
+                        notifyItemChanged(index)
+                    } else if (index >= locations.size) {
+                        currentLoc.removeAt(index)
+                        notifyItemRemoved(index)
+                    }
+                }
+            }
+        }
+
         override fun getItemCount(): Int {
-            return locations.size
+            return currentLoc.size
         }
 
         override fun createFragment(position: Int): Fragment {
             return WeatherInfoFragment.getInstance(
-                locations[position].latitude,
-                locations[position].longitude,
-                locations[position].cityName
+                currentLoc[position].latitude,
+                currentLoc[position].longitude,
+                currentLoc[position].cityName
             )
         }
     }
