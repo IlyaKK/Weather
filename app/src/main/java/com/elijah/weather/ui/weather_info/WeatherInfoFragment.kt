@@ -12,6 +12,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.elijah.weather.R
 import com.elijah.weather.app
 import com.elijah.weather.databinding.FragmentWeatherInfoBinding
 import com.elijah.weather.domain.entity.DailyWeather
@@ -30,6 +31,11 @@ class WeatherInfoFragment : Fragment() {
     private lateinit var linearLayoutManagerWeekDaysWeather: LinearLayoutManager
     private lateinit var hourlyDayWeatherAdapterResView: HourlyDayWeatherAdapterResView
     private lateinit var weekDaysWeatherAdapterResView: WeekDaysWeatherAdapterResView
+
+    init {
+        initialiseHourlyWeatherShow()
+        initialiseDailyWeatherShow()
+    }
 
     private val weatherInfoViewModel: WeatherInfoViewModel by lazy {
         ViewModelProvider(
@@ -51,8 +57,14 @@ class WeatherInfoFragment : Fragment() {
         arguments?.getString(KEY_NAME_LOCATION)?.let { showCityName(it) }
         initialiseHourlyDayWeatherRecyclerView()
         initialiseDaysWeekWeatherRecyclerView()
-        initialiseHourlyWeatherShow()
-        initialiseDailyWeatherShow()
+        weatherInfoViewModel.loadHourlyWeather(
+            arguments?.getDouble(KEY_LATITUDE_LOCATION) ?: 0.0,
+            arguments?.getDouble(KEY_LONGITUDE_LOCATION) ?: 0.0, "metric", "ru"
+        )
+        weatherInfoViewModel.loadDailyWeather(
+            arguments?.getDouble(KEY_LATITUDE_LOCATION) ?: 0.0,
+            arguments?.getDouble(KEY_LONGITUDE_LOCATION) ?: 0.0, "metric", "ru"
+        )
     }
 
     private fun initialiseHourlyDayWeatherRecyclerView() {
@@ -75,10 +87,6 @@ class WeatherInfoFragment : Fragment() {
     }
 
     private fun initialiseHourlyWeatherShow() {
-        weatherInfoViewModel.loadHourlyWeather(
-            arguments?.getDouble(KEY_LATITUDE_LOCATION) ?: 0.0,
-            arguments?.getDouble(KEY_LONGITUDE_LOCATION) ?: 0.0, "metric", "ru"
-        )
         lifecycleScope.launch {
             repeatOnLifecycle(Lifecycle.State.STARTED) {
                 weatherInfoViewModel.viewStateHourlyWeather.collect {
@@ -105,10 +113,6 @@ class WeatherInfoFragment : Fragment() {
 
 
     private fun initialiseDailyWeatherShow() {
-        weatherInfoViewModel.loadDailyWeather(
-            arguments?.getDouble(KEY_LATITUDE_LOCATION) ?: 0.0,
-            arguments?.getDouble(KEY_LONGITUDE_LOCATION) ?: 0.0, "metric", "ru"
-        )
         lifecycleScope.launch {
             repeatOnLifecycle(Lifecycle.State.STARTED) {
                 weatherInfoViewModel.viewStateDailyWeather.collect {
@@ -133,8 +137,12 @@ class WeatherInfoFragment : Fragment() {
     }
 
     private fun showMaxMinTemperature(dailyWeather: DailyWeather) {
-        binding.variableNightTemperatureTv.text = "Мин.${dailyWeather.temperatureMin}"
-        binding.variableDayTemperatureTv.text = "Макс.${dailyWeather.temperatureMax}"
+        val minTemperature =
+            "${binding.root.context.getString(R.string.Minimal)}${dailyWeather.temperatureMin}"
+        val maxTemperature =
+            "${binding.root.context.getString(R.string.Maximal)}${dailyWeather.temperatureMax}"
+        binding.variableNightTemperatureTv.text = minTemperature
+        binding.variableDayTemperatureTv.text = maxTemperature
     }
 
 

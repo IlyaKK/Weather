@@ -20,7 +20,8 @@ interface LocationDao {
     )
     suspend fun getCityByName(cityName: String): List<LocationDatabase>
 
-    @Query("SELECT * FROM locationdatabase")
+    @Query("SELECT * FROM locationdatabase " +
+            "ORDER BY current DESC")
     fun getAllLocations(): Flow<List<LocationDatabase>>
 
     @Query("DELETE FROM locationdatabase WHERE city_name = :cityName ")

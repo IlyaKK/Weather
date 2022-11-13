@@ -8,6 +8,7 @@ import kotlinx.coroutines.CoroutineExceptionHandler
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.launch
 
 class LocationViewModel(private val locationRepository: LocationRepository) : ViewModel() {
@@ -80,7 +81,9 @@ class LocationViewModel(private val locationRepository: LocationRepository) : Vi
     fun getAccessLocations() {
         scope.launch(handlerExceptionGetListLocations) {
             launch(Dispatchers.IO) {
-                locationRepository.getListAddedLocations().collect {
+                locationRepository.getListAddedLocations()
+                    .distinctUntilChanged()
+                    .collect {
                     _viewStateLocation.value = LocationViewState.LocationListLoaded(it)
                 }
             }

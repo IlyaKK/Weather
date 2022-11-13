@@ -38,7 +38,9 @@ class DayWeatherViewHolder(private val binding: ItemDayWeatherBinding) :
             binding.percentRainTv.visibility = View.GONE
         }
 
-        binding.variableMinDayTemperatureTv.text = "Мин." + item.temperatureMin
-        binding.variableMaxDayTemperatureTv.text = "Макс." + item.temperatureMax
+        val maxTemperature = binding.root.context.getString(R.string.Maximal) + item.temperatureMax
+        val minTemperature = binding.root.context.getString(R.string.Minimal) + item.temperatureMin
+        binding.variableMinDayTemperatureTv.text = minTemperature
+        binding.variableMaxDayTemperatureTv.text = maxTemperature
     }
 }

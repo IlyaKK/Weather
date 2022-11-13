@@ -6,7 +6,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.LinearLayout
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.Fragment
@@ -30,15 +29,16 @@ import com.elijah.weather.ui.weather_info.WeatherInfoFragment
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
 import kotlinx.coroutines.launch
-import java.util.*
 
 class ControlLocationsWeatherFragment : Fragment() {
     private lateinit var binding: FragmentControlLocationsWeatherBinding
     private lateinit var fusedLocationClient: FusedLocationProviderClient
-    private var poolFragmentsWeather: MutableList<Fragment> = mutableListOf()
-    private lateinit var pagerAdapter: ScreenSlidePagerAdapter
     private var listPointers: MutableList<PointItem> = mutableListOf(PointItem(0, true))
     private lateinit var pointerAdapter: PointersAdapter
+
+    init {
+        initialiseLocationsStates()
+    }
 
     private val locationViewModel: LocationViewModel by lazy {
         ViewModelProvider(
@@ -57,29 +57,10 @@ class ControlLocationsWeatherFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        initialisePagerView()
         initialiseRequestLocationPermission()
         initialiseEditLocationPlaces()
-        initialiseLocationsStates()
         initialisePointsExistsWeatherFragments()
-    }
-
-    private fun initialisePagerView() {
-        pagerAdapter = ScreenSlidePagerAdapter()
-        binding.pagerFragmentsVp.adapter = pagerAdapter
-        binding.pagerFragmentsVp.registerOnPageChangeCallback(object :
-            ViewPager2.OnPageChangeCallback() {
-            override fun onPageSelected(position: Int) {
-                super.onPageSelected(position)
-                val newList: List<PointItem> = listPointers.map {
-                    PointItem(
-                        id = it.id,
-                        select = it.id == position
-                    )
-                }
-                pointerAdapter.submitList(newList)
-            }
-        })
+        locationViewModel.getAccessLocations()
     }
 
     private fun initialiseRequestLocationPermission() {
@@ -110,7 +91,6 @@ class ControlLocationsWeatherFragment : Fragment() {
     }
 
     private fun initialiseLocationsStates() {
-        locationViewModel.getAccessLocations()
         lifecycleScope.launch {
             repeatOnLifecycle(Lifecycle.State.STARTED) {
                 locationViewModel.viewStateLocation.collect {
@@ -139,26 +119,29 @@ class ControlLocationsWeatherFragment : Fragment() {
     }
 
     private fun createSliderWeather(locations: List<Location>) {
-        for (i in locations.indices) {
-            if (locations[i].current) {
-                Collections.swap(locations, 0, i)
+        initialisePagerView(locations)
+    }
+
+    private fun initialisePagerView(locations: List<Location>) {
+        binding.pagerFragmentsVp.adapter = null
+        val pagerAdapter = ScreenSlidePagerAdapter(locations)
+        binding.pagerFragmentsVp.adapter = pagerAdapter
+        binding.pagerFragmentsVp.registerOnPageChangeCallback(object :
+            ViewPager2.OnPageChangeCallback() {
+            override fun onPageSelected(position: Int) {
+                super.onPageSelected(position)
+                val newList: MutableList<PointItem> = mutableListOf()
+                for (indexLocation in locations.indices) {
+                    newList.add(
+                        PointItem(
+                            id = indexLocation,
+                            select = indexLocation == position
+                        )
+                    )
+                }
+                pointerAdapter.submitList(newList)
             }
-        }
-        poolFragmentsWeather.clear()
-        listPointers.clear()
-        var i = 0
-        locations.forEach {
-            listPointers.add(PointItem(i, i == 0))
-            poolFragmentsWeather.add(
-                WeatherInfoFragment.getInstance(
-                    it.latitude,
-                    it.longitude,
-                    it.cityName
-                )
-            )
-            i++
-        }
-        pagerAdapter.notifyDataSetChanged()
+        })
     }
 
     private fun initialisePointsExistsWeatherFragments() {
@@ -177,14 +160,18 @@ class ControlLocationsWeatherFragment : Fragment() {
         }
     }
 
-    private inner class ScreenSlidePagerAdapter :
-        FragmentStateAdapter(childFragmentManager, lifecycle) {
+    private inner class ScreenSlidePagerAdapter(private val locations: List<Location>) :
+        FragmentStateAdapter(requireActivity()) {
         override fun getItemCount(): Int {
-            return poolFragmentsWeather.size
+            return locations.size
         }
 
         override fun createFragment(position: Int): Fragment {
-            return poolFragmentsWeather[position]
+            return WeatherInfoFragment.getInstance(
+                locations[position].latitude,
+                locations[position].longitude,
+                locations[position].cityName
+            )
         }
     }
 }
