@@ -23,3 +23,5 @@
 >weather_one_call_api_key="полученный API Key"
 
 Без VPN апи иногда не работает.
+
+<img src="https://user-images.githubusercontent.com/43324144/201521592-67025b45-ea42-4310-9e3a-6bc847ab15fa.jpg" width="270" height="600">
