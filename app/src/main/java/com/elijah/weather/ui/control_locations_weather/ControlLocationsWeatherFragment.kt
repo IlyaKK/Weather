@@ -16,7 +16,6 @@ import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import androidx.viewpager2.adapter.FragmentStateAdapter
 import androidx.viewpager2.widget.ViewPager2
 import com.elijah.weather.R
 import com.elijah.weather.app
@@ -25,7 +24,6 @@ import com.elijah.weather.domain.entity.Location
 import com.elijah.weather.ui.LocationViewModel
 import com.elijah.weather.ui.LocationViewState
 import com.elijah.weather.ui.control_locations_weather.pointers_recycler_view.PointersAdapter
-import com.elijah.weather.ui.weather_info.WeatherInfoFragment
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
 import kotlinx.coroutines.launch
@@ -60,7 +58,7 @@ class ControlLocationsWeatherFragment : Fragment() {
         initialiseRequestLocationPermission()
         initialiseEditLocationPlaces()
         initialisePointsExistsWeatherFragments()
-        pagerAdapter = ScreenSlidePagerAdapter()
+        pagerAdapter = ScreenSlidePagerAdapter(childFragmentManager, lifecycle)
         binding.pagerFragmentsVp.adapter = pagerAdapter
         locationViewModel.getAccessLocations()
     }
@@ -170,53 +168,6 @@ class ControlLocationsWeatherFragment : Fragment() {
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(requireActivity())
         fusedLocationClient.lastLocation.addOnSuccessListener {
             locationViewModel.addCurrentCoordinates(it.latitude, it.longitude)
-        }
-    }
-
-    private inner class ScreenSlidePagerAdapter :
-        FragmentStateAdapter(childFragmentManager, lifecycle) {
-        private var currentLoc = mutableListOf<Location>()
-
-        fun setLocations(locations: List<Location>) {
-            if (locations.size > currentLoc.size) {
-                for (index in currentLoc.size until locations.size) {
-                    currentLoc.add(locations[index])
-                    notifyItemChanged(index)
-                }
-            } else if (locations.size == currentLoc.size) {
-                for (index in locations.indices) {
-                    if (locations[index].cityName != currentLoc[index].cityName) {
-                        notifyItemRemoved(index)
-                        currentLoc.removeAt(index)
-                        currentLoc.add(index, locations[index])
-                        notifyItemChanged(index)
-                    }
-                }
-            } else if (locations.size < currentLoc.size) {
-                for (index in currentLoc.indices) {
-                    if (index < locations.size && (locations[index].cityName != currentLoc[index].cityName)) {
-                        notifyItemRemoved(index)
-                        currentLoc.removeAt(index)
-                        currentLoc.add(index, locations[index])
-                        notifyItemChanged(index)
-                    } else if (index >= locations.size) {
-                        currentLoc.removeAt(index)
-                        notifyItemRemoved(index)
-                    }
-                }
-            }
-        }
-
-        override fun getItemCount(): Int {
-            return currentLoc.size
-        }
-
-        override fun createFragment(position: Int): Fragment {
-            return WeatherInfoFragment.getInstance(
-                currentLoc[position].latitude,
-                currentLoc[position].longitude,
-                currentLoc[position].cityName
-            )
         }
     }
 }
