@@ -1,8 +1,7 @@
-package com.elijah.weather.ui.weather_info.hourly_weather_recycler_view
+package com.elijah.weather.presentation.weather_info
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import com.elijah.weather.R
 import com.elijah.weather.databinding.ItemHourWeatherBinding
@@ -19,21 +18,5 @@ class HourlyDayWeatherAdapterResView :
 
     override fun onBindViewHolder(holder: HourlyWeatherViewHolder, position: Int) {
         holder.bind(getItem(position), position)
-    }
-}
-
-object HourlyWeatherDiffCallback : DiffUtil.ItemCallback<HourlyWeather>() {
-    override fun areItemsTheSame(
-        oldItem: HourlyWeather,
-        newItem: HourlyWeather
-    ): Boolean {
-        return oldItem == newItem
-    }
-
-    override fun areContentsTheSame(
-        oldItem: HourlyWeather,
-        newItem: HourlyWeather
-    ): Boolean {
-        return oldItem.id == newItem.id
     }
 }

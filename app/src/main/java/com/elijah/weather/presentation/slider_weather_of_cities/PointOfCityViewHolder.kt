@@ -1,14 +1,13 @@
-package com.elijah.weather.ui.control_locations_weather.pointers_recycler_view
+package com.elijah.weather.presentation.slider_weather_of_cities
 
 import androidx.recyclerview.widget.RecyclerView
 import com.elijah.weather.R
 import com.elijah.weather.databinding.ItemPointerBinding
-import com.elijah.weather.ui.control_locations_weather.PointItem
 
-class PointerViewHolder(private val binding: ItemPointerBinding) :
+class PointOfCityViewHolder(private val binding: ItemPointerBinding) :
     RecyclerView.ViewHolder(binding.root) {
-    fun bind(item: PointItem, position: Int) {
-        if (position == 0) {
+    fun bind(item: PointOfCityItem) {
+        if (item.current) {
             if (item.select) {
                 binding.pointIv.setImageResource(R.drawable.ic_baseline_navigation_d)
             } else {

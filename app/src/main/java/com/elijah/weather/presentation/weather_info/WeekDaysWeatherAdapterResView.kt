@@ -1,8 +1,7 @@
-package com.elijah.weather.ui.weather_info.week_days_recycler_view
+package com.elijah.weather.presentation.weather_info
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import com.elijah.weather.R
 import com.elijah.weather.databinding.ItemDayWeatherBinding
@@ -19,21 +18,5 @@ class WeekDaysWeatherAdapterResView :
 
     override fun onBindViewHolder(holder: DayWeatherViewHolder, position: Int) {
         holder.bind(getItem(position), position)
-    }
-}
-
-object DayWeatherDiffCallback : DiffUtil.ItemCallback<DailyWeather>() {
-    override fun areItemsTheSame(
-        oldItem: DailyWeather,
-        newItem: DailyWeather
-    ): Boolean {
-        return oldItem == newItem
-    }
-
-    override fun areContentsTheSame(
-        oldItem: DailyWeather,
-        newItem: DailyWeather
-    ): Boolean {
-        return oldItem.id == newItem.id
     }
 }
