@@ -1,12 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="wrap_content"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <androidx.appcompat.widget.AppCompatImageView
         android:id="@+id/point_iv"
         android:layout_width="10dp"
         android:layout_height="10dp"
-        android:layout_margin="5dp" />
+        android:layout_margin="5dp"
+        tools:src="@drawable/ic_baseline_circle_d"/>
 
 </FrameLayout>

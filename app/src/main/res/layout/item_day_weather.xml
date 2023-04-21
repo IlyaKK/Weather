@@ -3,13 +3,16 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:paddingStart="4dp"
+    android:paddingEnd="4dp">
 
     <TextView
         android:id="@+id/title_day_name_tv"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
         style="@style/StyleTextViewItemWeatherDay"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:gravity="center"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@id/image_weather_day_iv"
         app:layout_constraintStart_toStartOf="parent"
@@ -24,7 +27,7 @@
         app:layout_constraintEnd_toStartOf="@id/variable_min_day_temperature_tv"
         app:layout_constraintStart_toEndOf="@id/title_day_name_tv"
         app:layout_constraintTop_toTopOf="parent"
-        tools:src="@drawable/rain_d" />
+        tools:src="@drawable/ic_launcher_background"/>
 
     <TextView
         android:id="@+id/percent_rain_tv"
@@ -43,9 +46,10 @@
 
     <TextView
         android:id="@+id/variable_min_day_temperature_tv"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
         style="@style/StyleTextViewItemWeatherDay"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:gravity="center"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@id/variable_max_day_temperature_tv"
         app:layout_constraintStart_toEndOf="@id/image_weather_day_iv"
@@ -54,10 +58,10 @@
 
     <TextView
         android:id="@+id/variable_max_day_temperature_tv"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="5dp"
         style="@style/StyleTextViewItemWeatherDay"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:gravity="center"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@id/variable_min_day_temperature_tv"

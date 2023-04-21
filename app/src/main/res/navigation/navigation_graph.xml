@@ -3,20 +3,44 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/navigation_graph"
-    app:startDestination="@id/controlLocationsWeatherFragment">
-
+    app:startDestination="@id/sliderWeatherCitiesFragment">
     <fragment
-        android:id="@+id/controlLocationsWeatherFragment"
-        android:name="com.elijah.weather.ui.control_locations_weather.ControlLocationsWeatherFragment"
-        android:label="fragment_control_locations_weather"
-        tools:layout="@layout/fragment_control_locations_weather" >
+        android:id="@+id/sliderWeatherCitiesFragment"
+        android:name="com.elijah.weather.presentation.slider_weather_of_cities.SliderWeatherCitiesFragment"
+        android:label="fragment_slider_weather_cities"
+        tools:layout="@layout/fragment_slider_weather_cities">
         <action
-            android:id="@+id/next_action"
-            app:destination="@id/searchLocationFragment" />
+            android:id="@+id/actionPermissionsRequestFragment"
+            app:destination="@id/permissionsRequestFragment"
+            app:launchSingleTop="true"
+            app:popUpToInclusive="false" />
+        <action
+            android:id="@+id/action_sliderWeatherCitiesFragment_to_searchLocationFragment"
+            app:destination="@id/editLocationFragment"
+            app:popUpTo="@id/sliderWeatherCitiesFragment"
+            app:popUpToInclusive="false" />
     </fragment>
     <fragment
-        android:id="@+id/searchLocationFragment"
-        android:name="com.elijah.weather.ui.search_location.SearchLocationFragment"
-        android:label="fragment_search_location"
-        tools:layout="@layout/fragment_search_location" />
+        android:id="@+id/editLocationFragment"
+        android:name="com.elijah.weather.presentation.edit_location.EditLocationFragment"
+        android:label="fragment_edit_location"
+        tools:layout="@layout/fragment_edit_location">
+        <action
+            android:id="@+id/action_editLocationFragment_to_permissionsRequestFragment"
+            app:destination="@id/permissionsRequestFragment"
+            app:launchSingleTop="true" />
+    </fragment>
+    <fragment
+        android:id="@+id/permissionsRequestFragment"
+        android:name="com.elijah.weather.presentation.permissions_requests.PermissionRequestFragment"
+        android:label="fragment_permissions_request"
+        tools:layout="@layout/fragment_permissions_request">
+        <argument
+            android:name="permissionType"
+            app:argType="string[]" />
+        <action
+            android:id="@+id/action_permissionsRequestFragment_to_sliderWeatherCitiesFragment"
+            app:destination="@id/sliderWeatherCitiesFragment"
+            app:launchSingleTop="true" />
+    </fragment>
 </navigation>

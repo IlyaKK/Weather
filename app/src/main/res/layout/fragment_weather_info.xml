@@ -5,7 +5,13 @@
     android:layout_width="fill_parent"
     android:layout_height="match_parent"
     android:background="@color/color_primiry"
-    tools:context=".ui.weather_info.WeatherInfoFragment">
+    tools:context=".presentation.weather_info.WeatherInfoFragment">
+
+    <ProgressBar
+        android:id="@+id/load_weather_data_pb"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center" />
 
     <androidx.core.widget.NestedScrollView
         android:id="@+id/nested_main_weather_nsv"
@@ -16,17 +22,31 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-            <TextView
-                android:id="@+id/title_city_tv"
+            <HorizontalScrollView
+                android:id="@+id/scroll_title_city"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="fill_parent"
                 android:layout_marginTop="40dp"
-                android:textSize="@dimen/title_city_text_size"
+                android:foregroundGravity="center_vertical"
+                android:paddingStart="8dp"
+                android:paddingEnd="8dp"
                 app:layout_constraintBottom_toTopOf="@id/variable_temperature_now_tv"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                tools:text="Белоозерский" />
+                app:layout_constraintTop_toTopOf="parent">
+
+                <TextView
+                    android:id="@+id/title_city_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:maxLines="1"
+                    android:scrollbarAlwaysDrawHorizontalTrack="true"
+                    android:scrollbars="horizontal"
+                    android:scrollHorizontally="true"
+                    android:textSize="@dimen/title_city_text_size"
+                    tools:text="klk;lkl;lmp;klm'kk;kl;;lkkl;k[okl,'" />
+            </HorizontalScrollView>
+
 
             <TextView
                 android:id="@+id/variable_temperature_now_tv"
@@ -36,8 +56,8 @@
                 app:layout_constraintBottom_toTopOf="@id/title_weather_tv"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/title_city_tv"
-                tools:text="30\u00B0c" />
+                app:layout_constraintTop_toBottomOf="@id/scroll_title_city"
+                tools:text="30\u00B0C" />
 
             <TextView
                 android:id="@+id/title_weather_tv"
@@ -62,19 +82,19 @@
                 app:layout_constraintTop_toBottomOf="@id/title_weather_tv">
 
                 <TextView
-                    android:id="@+id/variable_day_temperature_tv"
+                    android:id="@+id/variable_night_temperature_tv"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textSize="@dimen/current_max_min_temperature_text_size"
-                    tools:text="Макс:30\u00B0c" />
+                    tools:text="Мин:20\u00B0c" />
 
                 <TextView
-                    android:id="@+id/variable_night_temperature_tv"
+                    android:id="@+id/variable_day_temperature_tv"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="5dp"
                     android:textSize="@dimen/current_max_min_temperature_text_size"
-                    tools:text="Мин:20\u00B0c" />
+                    tools:text="Макс:30\u00B0c" />
             </LinearLayout>
 
             <com.google.android.material.card.MaterialCardView
@@ -91,7 +111,9 @@
                     android:id="@+id/hourly_day_weather_rv"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_margin="10dp" />
+                    android:orientation="horizontal"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                    tools:listitem="@layout/item_hour_weather" />
 
             </com.google.android.material.card.MaterialCardView>
 
@@ -110,7 +132,7 @@
                     android:id="@+id/seven_day_weather_rv"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_margin="10dp"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                     tools:listitem="@layout/item_day_weather" />
             </com.google.android.material.card.MaterialCardView>
 

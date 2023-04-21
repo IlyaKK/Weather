@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:layout_margin="10dp">
+    android:padding="10dp">
 
     <TextView
         android:id="@+id/title_hour_tv"
@@ -18,15 +18,14 @@
         app:layout_constraintTop_toTopOf="parent"
         tools:text="Сейчас" />
 
-    <ImageView
+    <androidx.appcompat.widget.AppCompatImageView
         android:id="@+id/image_weather_iv"
         android:layout_width="50dp"
         android:layout_height="50dp"
         app:layout_constraintBottom_toTopOf="@id/temperature_hour_tv"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/title_hour_tv"
-        tools:src="@drawable/rain_d" />
+        app:layout_constraintTop_toBottomOf="@id/title_hour_tv" />
 
     <TextView
         android:id="@+id/probability_precipitation_tv"

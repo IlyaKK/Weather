@@ -5,4 +5,9 @@
     <dimen name="title_now_weather_description_text_size">21sp</dimen>
     <dimen name="current_max_min_temperature_text_size">21sp</dimen>
     <dimen name="title_coordinates_text_size">16sp</dimen>
+    <dimen name="margin_normal">16dp</dimen>
+    <dimen name="margin_large">32dp</dimen>
+    <dimen name="permission_icon_vector_dimension">120dp</dimen>
+    <dimen name="fragment_permission_title_text_size">24sp</dimen>
+    <dimen name="fragment_permission_body_text_size">18sp</dimen>
 </resources>

@@ -4,6 +4,6 @@
     <color name="white">#FFFFFFFF</color>
     <color name="color_primiry">#6A92B6</color>
     <color name="background_color">#2DFFFFFF</color>
-    <color name="text_color_percent">#FFEB3B</color>
+    <color name="text_color_percent">#FFE500</color>
     <color name="card_transparent_color">#14000000</color>
 </resources>
