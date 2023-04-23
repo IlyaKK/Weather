@@ -36,6 +36,9 @@
                 <action android:name="presentation.LocationUpdatesBroadcastReceiver.ACTION_LOCATION_PROCESS_UPDATES" />
             </intent-filter>
         </receiver>
+        <meta-data
+            android:name="preloaded_fonts"
+            android:resource="@array/preloaded_fonts" />
     </application>
 
 </manifest>

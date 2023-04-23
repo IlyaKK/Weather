@@ -5,6 +5,7 @@
     android:id="@+id/main_slider_cont_cl"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/color_primiry"
     tools:context=".presentation.slider_weather_of_cities.SliderWeatherCitiesFragment">
 
     <androidx.viewpager2.widget.ViewPager2
@@ -25,7 +26,8 @@
         android:layout_width="match_parent"
         android:layout_height="70dp"
         android:background="@color/color_primiry"
-        android:elevation="20dp"
+        android:elevation="10dp"
+        android:layout_marginTop="6dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent">

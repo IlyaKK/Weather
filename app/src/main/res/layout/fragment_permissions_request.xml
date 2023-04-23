@@ -5,6 +5,7 @@
     android:id="@+id/frameLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#9DB7CC"
     tools:context=".presentation.permissions_requests.PermissionRequestFragment">
 
     <ImageView
@@ -28,13 +29,13 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/margin_normal"
-        android:layout_marginLeft="@dimen/margin_normal"
         android:layout_marginTop="@dimen/margin_large"
         android:layout_marginEnd="@dimen/margin_normal"
-        android:layout_marginRight="@dimen/margin_normal"
+        android:fontFamily="@font/frank_ruhl_libre"
         android:gravity="center_vertical"
+        android:scrollbars="vertical"
+        android:textColor="#2B333A"
         android:textSize="@dimen/fragment_permission_body_text_size"
-        android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/iconImageView"
@@ -45,6 +46,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/margin_normal"
+        android:textColor="#2B333A"
         android:textSize="@dimen/fragment_permission_title_text_size"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

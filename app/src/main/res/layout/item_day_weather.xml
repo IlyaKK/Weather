@@ -9,7 +9,7 @@
 
     <TextView
         android:id="@+id/title_day_name_tv"
-        style="@style/StyleTextViewItemWeatherDay"
+        style="@style/TextViewItemWeatherDayStyle"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:gravity="center"
@@ -26,8 +26,7 @@
         app:layout_constraintBottom_toTopOf="@+id/percent_rain_tv"
         app:layout_constraintEnd_toStartOf="@id/variable_min_day_temperature_tv"
         app:layout_constraintStart_toEndOf="@id/title_day_name_tv"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:src="@drawable/ic_launcher_background"/>
+        app:layout_constraintTop_toTopOf="parent"/>
 
     <TextView
         android:id="@+id/percent_rain_tv"
@@ -46,7 +45,7 @@
 
     <TextView
         android:id="@+id/variable_min_day_temperature_tv"
-        style="@style/StyleTextViewItemWeatherDay"
+        style="@style/TextViewItemWeatherDayStyle"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:gravity="center"
@@ -58,7 +57,7 @@
 
     <TextView
         android:id="@+id/variable_max_day_temperature_tv"
-        style="@style/StyleTextViewItemWeatherDay"
+        style="@style/TextViewItemWeatherDayStyle"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:gravity="center"

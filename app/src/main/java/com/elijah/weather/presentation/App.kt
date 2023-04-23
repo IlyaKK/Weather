@@ -23,9 +23,8 @@ class App : Application(), Configuration.Provider {
     }
 
     override fun getWorkManagerConfiguration(): Configuration {
-        return Configuration.Builder().setWorkerFactory(
-            workerFactory
-        ).build()
+        return Configuration.Builder()
+            .setWorkerFactory(workerFactory).build()
     }
 }
 

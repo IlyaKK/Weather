@@ -5,6 +5,7 @@
     android:id="@+id/edit_location_cont"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#9DB7CC"
     android:fitsSystemWindows="true"
     tools:context=".presentation.edit_location.EditLocationFragment">
 
@@ -39,13 +40,19 @@
             android:layout_marginTop="4dp"
             android:layout_marginEnd="10dp"
             android:hint="@string/input_location_name"
+            android:textColorHint="#373737"
+            app:boxStrokeColor="#7E805C"
             app:endIconMode="clear_text"
+            app:endIconTint="#7E805C"
             app:errorEnabled="true"
             app:helperTextEnabled="true"
+            app:helperTextTextColor="#4A4949"
+            app:hintTextColor="#4A4949"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:startIconDrawable="@drawable/ic_baseline_search_24">
+            app:startIconDrawable="@drawable/ic_baseline_search_24"
+            app:startIconTint="#7E805C">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/text_input_search_city_tv"
