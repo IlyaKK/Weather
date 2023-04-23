@@ -106,7 +106,7 @@ class WeatherOfCityRepositoryImpl @Inject constructor(
         workManager
             .beginUniqueWork(
                 RefreshCurrentLocationWorker.NAME,
-                ExistingWorkPolicy.APPEND,
+                ExistingWorkPolicy.KEEP,
                 RefreshCurrentLocationWorker.makeRequest(latitude, longitude)
             )
             .then(addWeatherCity)
