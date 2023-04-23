@@ -48,21 +48,7 @@ class WeatherCityViewModel @Inject constructor(
     private suspend fun initialiseGetCityList() {
         getCitiesUseCase.invoke()
             .onEach { cityList ->
-                val pointState = _viewStatePointsCity.value as? PointState.PointContent
-                pointState?.let { pointCont ->
-                    val oldList = pointCont.points
-                    val newList = cityList.map { city ->
-                        pointsMapper.mapCityToPointOfItem(city)
-                    }.toMutableList()
-                    val selectPoint = oldList.find { it.select }
-                    selectPoint?.let { pointCitySelect ->
-                        val indexSelect = oldList.indexOf(pointCitySelect)
-                        if (indexSelect < newList.size) {
-                            newList[indexSelect] = newList[indexSelect].copy(select = true)
-                        }
-                    }
-                    _viewStatePointsCity.emit(PointState.PointContent(newList.toList()))
-                }
+                updatePointCities(cityList)
             }
             .map {
                 CityInfoState.CityListContent(it) as CityInfoState
@@ -72,6 +58,22 @@ class WeatherCityViewModel @Inject constructor(
                 _viewStateCityInfo.emit(it)
             }
 
+    }
+
+    private suspend fun updatePointCities(cityList: List<City>) {
+        val pointState = _viewStatePointsCity.value as? PointState.PointContent
+        pointState?.let { pointCont ->
+            val oldList = pointCont.points
+            val newList = cityList.map { city ->
+                pointsMapper.mapCityToPointOfItem(city)
+            }.toMutableList()
+            for (oldPointInd in oldList.indices) {
+                if (oldList[oldPointInd].select && oldPointInd < newList.size) {
+                    newList[oldPointInd] = newList[oldPointInd].copy(select = true)
+                }
+            }
+            _viewStatePointsCity.emit(PointState.PointContent(newList.toList()))
+        }
     }
 
     fun selectPointCurrentCity(position: Int) {
