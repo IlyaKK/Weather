@@ -20,6 +20,8 @@ class LoadNewWeatherCityWorker(
         val cityId = inputData.getInt(KEY_ID_CITY, 0)
         val weather = apiService.getWeather(latitude, longitude)
         if (weather.daily.isNotEmpty() && weather.hourly.isNotEmpty()) {
+            weatherDao.deleteWeatherDayOfCity(cityId)
+            weatherDao.deleteWeatherHoursOfCity(cityId)
             weatherDao.insertWeatherCityOfHours(weather.hourly.map { weatherHourDto ->
                 weatherMapper.mapWeatherOfHoursDtoToWeatherOfHoursDbModel(
                     weatherHourDto,
