@@ -3,10 +3,13 @@
 ## Exercise
 It is necessary to implement an application that displays the weather forecast.
 
-### Application requirements:
+### About:
 Displaying the weather forecast for the current day
+
 Weekly forecast display
+
 Possibility to see the weather forecast in the current city
+
 The ability to choose any other city and find out the weather forecast in it
 
 ## Description
